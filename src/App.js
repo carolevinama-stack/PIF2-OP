@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
-import Budget from './pages/Budget'; // On importe la nouvelle page
+import Budget from './pages/Budget';
+import Parametres from './pages/Parametres';
+import Beneficiaires from './pages/Beneficiaires';
+import NouvelOp from './pages/NouvelOp'; // AJOUTÉ
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -8,16 +11,15 @@ function App() {
   const renderPage = () => {
     switch(currentPage) {
       case 'dashboard':
-        return (
-          <div style={{ padding: '40px' }}>
-            <h1 style={{ color: '#0f4c3a' }}>📊 Tableau de bord</h1>
-            <p>Bienvenue dans votre gestion financière PIF 2.</p>
-          </div>
-        );
+        return <div style={{ padding: '40px' }}><h1>📊 Tableau de bord</h1><p>Prêt pour les opérations.</p></div>;
       case 'budget':
-        return <Budget />; // ICI : On affiche notre nouveau fichier Budget.js
-      case 'nouvelOp':
-        return <div style={{ padding: '40px' }}><h1>➕ Nouvel OP</h1><p>Module en cours de migration...</p></div>;
+        return <Budget />;
+      case 'parametres':
+        return <Parametres />;
+      case 'beneficiaires':
+        return <Beneficiaires />;
+      case 'nouvelOp': // AJOUTÉ
+        return <NouvelOp />; 
       default:
         return <div style={{ padding: '40px' }}><h1>Page en construction</h1></div>;
     }
