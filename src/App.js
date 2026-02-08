@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
+import Budget from './pages/Budget'; // On importe la nouvelle page
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
 
-  // Cette fonction change la page affichée
   const renderPage = () => {
     switch(currentPage) {
       case 'dashboard':
-        return <div style={{ padding: '40px' }}><h1>📊 Tableau de bord</h1><p>Bienvenue dans votre nouvel espace.</p></div>;
-      case 'nouvelOp':
-        return <div style={{ padding: '40px' }}><h1>➕ Créer un OP</h1><p>Le formulaire sera ici.</p></div>;
+        return (
+          <div style={{ padding: '40px' }}>
+            <h1 style={{ color: '#0f4c3a' }}>📊 Tableau de bord</h1>
+            <p>Bienvenue dans votre gestion financière PIF 2.</p>
+          </div>
+        );
       case 'budget':
-        return <div style={{ padding: '40px' }}><h1>💰 Gestion du Budget</h1><p>Les lignes budgétaires seront ici.</p></div>;
+        return <Budget />; // ICI : On affiche notre nouveau fichier Budget.js
+      case 'nouvelOp':
+        return <div style={{ padding: '40px' }}><h1>➕ Nouvel OP</h1><p>Module en cours de migration...</p></div>;
       default:
         return <div style={{ padding: '40px' }}><h1>Page en construction</h1></div>;
     }
@@ -20,10 +25,7 @@ function App() {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#FDFBF7' }}>
-      {/* Notre nouveau menu */}
       <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
-
-      {/* Le contenu à droite du menu */}
       <main style={{ marginLeft: '260px', flex: 1 }}>
         {renderPage()}
       </main>
