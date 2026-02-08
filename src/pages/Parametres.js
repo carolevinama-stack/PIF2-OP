@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebase';
-import { collection, getDocs, addDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 export default function Parametres() {
   const [sources, setSources] = useState([]);
   const [newSource, setNewSource] = useState({ nom: '', sigle: '', couleur: '#0f4c3a' });
 
-  // Charger les sources existantes
   const loadSources = async () => {
     const snap = await getDocs(collection(db, 'sources'));
     setSources(snap.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -23,10 +22,10 @@ export default function Parametres() {
 
   return (
     <div style={{ padding: '40px' }}>
-      <h1 style={{ color: '#0f4c3a' }}>⚙️ Paramètres du Système</h1>
+      <h1 style={{ color: '#0f4c3a' }}>⚙️ Paramètres</h1>
       
-      <div style={{ background: 'white', padding: '30px', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', marginBottom: '30px' }}>
-        <h3>🏦 Ajouter une Source de Financement</h3>
+      <div style={{ background: 'white', padding: '30px', borderRadius: '24px', marginBottom: '30px' }}>
+        <h3>Ajouter une Source</h3>
         <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
           <input 
             placeholder="Nom (ex: Banque Mondiale)" 
@@ -46,15 +45,14 @@ export default function Parametres() {
         </div>
       </div>
 
-      <div style={{ background: 'white', padding: '30px', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-        <h3>Sources configurées</h3>
-        <ul style={{ listStyle: 'none', padding: 0, marginTop: '20px' }}>
+      <div style={{ background: 'white', padding: '30px', borderRadius: '24px' }}>
+        <h3>Sources existantes</h3>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
           {sources.map(s => (
-            <li key={s.id} style={{ padding: '10px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between' }}>
+            <li key={s.id} style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
               <strong>{s.sigle}</strong> - {s.nom}
             </li>
           ))}
-          {sources.length === 0 && <p style={{ color: '#999' }}>Aucune source pour le moment.</p>}
         </ul>
       </div>
     </div>
