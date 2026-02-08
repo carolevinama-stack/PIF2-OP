@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('dashboard');
+
+  // Cette fonction change la page affichée
+  const renderPage = () => {
+    switch(currentPage) {
+      case 'dashboard':
+        return <div style={{ padding: '40px' }}><h1>📊 Tableau de bord</h1><p>Bienvenue dans votre nouvel espace.</p></div>;
+      case 'nouvelOp':
+        return <div style={{ padding: '40px' }}><h1>➕ Créer un OP</h1><p>Le formulaire sera ici.</p></div>;
+      case 'budget':
+        return <div style={{ padding: '40px' }}><h1>💰 Gestion du Budget</h1><p>Les lignes budgétaires seront ici.</p></div>;
+      default:
+        return <div style={{ padding: '40px' }}><h1>Page en construction</h1></div>;
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#FDFBF7', fontFamily: 'sans-serif' }}>
-      <div style={{ textAlign: 'center', padding: '40px', background: 'white', borderRadius: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}>
-        <h1 style={{ color: '#0f4c3a', fontSize: '32px', marginBottom: '10px' }}>🚀 PIF 2 - Version 2</h1>
-        <p style={{ color: '#4b5563' }}>La base est installée et propre.</p>
-        <div style={{ marginTop: '20px', padding: '10px', background: '#dcfce7', color: '#166534', borderRadius: '8px', fontWeight: 'bold' }}>
-          Prêt pour le développement
-        </div>
-      </div>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#FDFBF7' }}>
+      {/* Notre nouveau menu */}
+      <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
+
+      {/* Le contenu à droite du menu */}
+      <main style={{ marginLeft: '260px', flex: 1 }}>
+        {renderPage()}
+      </main>
     </div>
   );
 }
